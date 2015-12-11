@@ -1,6 +1,6 @@
 
 
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -30,11 +30,11 @@
 <fieldset>
 	<legend>Choose your creature type:</legend>
 	<p>
-		<input type="radio" name="creature_type" name="alien" value="alien" id="alien">
+		<input type="radio" name="creature_type" value="alien" id="alien">
 		<label for="alien">Alien</label>
 	</p>
 	<p>
-		<input type="radio" name="creature_type" name="robot" value="robot" id="robot">
+		<input type="radio" name="creature_type" value="robot" id="robot">
 		<label for="robot">Robot</label>
 	</p>
 </fieldset>

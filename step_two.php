@@ -2,8 +2,13 @@
 <?php
 	//call array
     $first_name = $_POST['name'];
-    $creature = $_POST['creature_type'];
-	$name_err = '';
+    $creature = "";
+    //$creature = $_POST['creature_type'];
+	$error = "";
+	$hide_open = "";
+	$hide_close = "";
+	$name_err = "";
+	$creature_err = "";
 	
 	$robotDesc = array("bot is sleek and shiny with more lasers than you can shake a leg at!","borg beep-boops all the live-long day. We don't know how to shut them off, so have fun with that...",".EXE is clunky and in need of repairs. Kinda rustic though.","mech is incredible and huge like those robots from the animes. It comes with a big drill, loads of determination and a dream to pierce the heavens!");
 	$alienDesc = array("zorg is small and slimy.","zula is big and green and mean!","nyalien is one we're actually not too sure is really an alien? They look kind of like... a weird cat...","xuluthjgk has to catch their cab back to space.");
@@ -18,11 +23,25 @@ if (isset($_POST['name']) && !empty($_POST['name'])  ) {
        $first_name = strtolower($first_name);
        $first_name = ucwords($first_name);
 	
-        } else {
-            $first_name = '';
-			$name_err = "Name is required.";
-        }
+        } 
+if (isset($_POST['creature_type']) && !empty($_POST['creature_type'])  ) {
+       $creature = $_POST['creature_type'];
+	
+        } 
 
+if (empty($_POST['name']) || empty($_POST['creature_type'])) {
+	$error = "<p class='red'>Error! Please try again!</p>Required:<br>";
+	$hide_open = "<div id='hide'>";
+	$hide_close = "</div>";
+	
+}
+if (empty($_POST['name'])) {
+	$name_err = "Fill in a name.<br>";
+}
+
+if (empty($_POST['creature_type'])) {
+	$creature_err = "Select either robot or alien.<br>";
+}
 
  $botsChoice = $first_name.$robotDesc[mt_rand (0, 3)];
  $aliensChoice = $first_name.$alienDesc[mt_rand (0, 3)];
@@ -35,6 +54,13 @@ if ($creature == 'alien') {
 	$resultsPic = "<img src='images/robot.png' alt='alien' height='189' width='183'>";
 }
 
+// EMAIL FUNCTION
+//	  $to = "eric.chen@senecacollege.com";
+//    $subject = "Creature Generator";
+//    $message = 'Name: '.$first_name.', Creature Type: '.$creature.', Message:'.$resultsDesc;
+//
+//    mail($to,$subject,$message);
+
 
 ?>
 
@@ -46,6 +72,10 @@ if ($creature == 'alien') {
 <title>Creature Generator</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/uniform.default.css">
+<style>
+	.red {color: red;}
+	#hide {display: none;}
+</style>
 </head>
 <body>
 
@@ -60,8 +90,10 @@ if ($creature == 'alien') {
 <h4>Step Two: Results</h4>
 
 <?php
-//	echo '<br>'.$first_name;
-//	echo '<br>'.$creature;
+	echo $error;
+	echo $name_err;
+	echo $creature_err;
+	echo $hide_open;
 ?>
 
 
@@ -83,7 +115,7 @@ day. But don’t worry! Your beautiful <?php echo $creature; ?> child is ready a
 	?>
 	
 </p>
-
+<?php echo $hide_close; ?>
 
 </div>
 
@@ -105,9 +137,6 @@ jQuery("select, input:checkbox, input:radio, input:file, input:text, input:submi
      $("#click").click(function (e) {
         e.preventDefault();
         
-        //var link_url = $(this).attr("href");
-        //$("#maker_results").load(link_url + "#content");
-		 //$("#maker_results").hide();
 		 $("#maker_results").slideDown(500);
         
     });
